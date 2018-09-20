@@ -29,7 +29,8 @@ class QuizViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     
-    
+   
+        
     //一時的にクイズを格納しておく配列
     var tmpArray = [Any]()
     
@@ -62,7 +63,22 @@ class QuizViewController: UIViewController {
         choiceButton3.setTitle(tmpArray[3] as? String, for: .normal)
     }
 
-    @IBAction func choiceAnswer(sender:UIButton){
+    func performSegueToResult(){
+        performSegue(withIdentifier: "toResultView", sender: nil)
+        
+    }
+    
+    //セグエをする時に呼ばれるメソッド
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toResultView"{
+            let resultViewController = segue.destination as! ResultViewController
+            resultViewController.correctAnswer = self.correctAnswer
+        }
+    }
+    
+    @IBAction func choiceAnswer
+        
+        (sender:UIButton){
         
         let tmpArray = quizArray[0] as! [Any]
         if tmpArray[4] as! Int == sender.tag{
@@ -81,18 +97,8 @@ class QuizViewController: UIViewController {
             choiceQuiz()
         }
     }
-    func performSegueToResult(){
-        performSegue(withIdentifier: "toResultView", sender: nil)
-        
-    }
-    
-    //セグエをする時に呼ばれるメソッド
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toResultView"{
-            let resultViewController = segue.destination as! ResultViewController
-            resultViewController.correctAnswer = self.correctAnswer
-        }
-    }
+   
+ 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
